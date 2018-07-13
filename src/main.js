@@ -12,6 +12,15 @@ function create(subdomain, token) { // eslint-disable-line no-unused-vars
  * 最近表示されたチケットを取得する
  * @return {Object} チケット情報のオブジェクト
  */
-function getRecentTicket() { // eslint-disable-line no-unused-vars
+function getRecentTickets() { // eslint-disable-line no-unused-vars
+  throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
+}
+
+/**
+ * 指定した1つのチケットを取得する
+ * @param {Integer} id チケットのid
+ * @return {Object} チケット情報のオブジェクト
+ */
+function getSingleTicket(id) { // eslint-disable-line no-unused-vars
   throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
 }

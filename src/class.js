@@ -9,8 +9,12 @@
       if (!token) throw new Error('"token"は必須です');
     }
 
-    ZendeskClient.prototype.getRecentTicket = function() {
+    ZendeskClient.prototype.getRecentTickets = function() {
       return this.fetch_('/tickets/recent.json',{'method': 'get'});
+    };
+
+    ZendeskClient.prototype.getSingleTicket = function(id) {
+      return this.fetch_('/api/v2/tickets/' + id + '.json',{'method': 'get'});
     };
 
     ZendeskClient.prototype.fetch_ = function(resource, options) {

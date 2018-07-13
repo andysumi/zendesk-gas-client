@@ -10,7 +10,8 @@
        "googleappsscript/googleappsscript": true
     },
     "globals": {
-      "PractiTestClient": false
+      "PractiTestClient": false,
+      "console": false
     },
     "rules": {
       "semi": "warn",
