@@ -14,7 +14,7 @@
     };
 
     ZendeskClient.prototype.getSingleTicket = function(id) {
-      return this.fetch_('/api/v2/tickets/' + id + '.json',{'method': 'get'});
+      return this.fetch_('/tickets/' + id + '.json',{'method': 'get'});
     };
 
     ZendeskClient.prototype.fetch_ = function(resource, options) {

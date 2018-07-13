@@ -10,7 +10,7 @@
        "googleappsscript/googleappsscript": true
     },
     "globals": {
-      "PractiTestClient": false,
+      "ZendeskClient": false,
       "console": false
     },
     "rules": {

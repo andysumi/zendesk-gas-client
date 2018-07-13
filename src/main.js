@@ -5,7 +5,7 @@
  * @return {ZendeskClient} Zendesk Clientのインスタンス
  */
 function create(subdomain, token) { // eslint-disable-line no-unused-vars
-  return new PractiTestClient(subdomain, token);
+  return new ZendeskClient(subdomain, token);
 }
 
 /**
