@@ -1,11 +1,14 @@
 /**
  * Zendesk Clientのインスタンスを作成する
- * @param {String} subdomain Zendesk URLのサブドメン
- * @param {String} token OAuthアクセストークン
+ * @param {String} subdomain Zendesk URLのサブドメン (https://◯◯◯.zendesk.com/)
+ * @param {String} email メールアドレス
+ * @param {String} password パスワード
+ * @param {String} apiToken APIトークン
+ * @param {String} accessToken OAuthアクセストークン
  * @return {ZendeskClient} Zendesk Clientのインスタンス
  */
-function create(subdomain, token) { // eslint-disable-line no-unused-vars
-  return new ZendeskClient(subdomain, token);
+function create(subdomain, email, password, apiToken, accessToken) { // eslint-disable-line no-unused-vars
+  return new ZendeskClient(subdomain, email, password, apiToken, accessToken);
 }
 
 /**

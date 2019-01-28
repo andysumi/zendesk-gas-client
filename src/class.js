@@ -1,14 +1,28 @@
 (function(global) {
   var ZendeskClient = (function() {
 
-    function ZendeskClient(subdomain, token) {
+    function ZendeskClient(subdomain, email, password, apiToken, accessToken) {
       this.apiUrl = 'https://' + subdomain + '.zendesk.com/api/v2';
-      this.headers = {
-        Authorization : 'Bearer ' + token
-      };
 
-      if (!subdomain) throw new Error('"subdomain"は必須です');
-      if (!token) throw new Error('"token"は必須です');
+      var authStr;
+      if (email) {
+        if (password) {
+          authStr = email + ':' + password;
+        } else if (apiToken) {
+          authStr = email + '/token:' + apiToken;
+        } else {
+          throw new Error('"password"または"apiToken"は必須です');
+        }
+        this.headers = {
+          Authorization: 'Basic ' + Utilities.base64Encode(authStr)
+        };
+      } else if (accessToken) {
+        this.headers = {
+          Authorization: 'Bearer ' + accessToken
+        };
+      } else {
+        throw new Error('"email"または"accessToken"は必須です');
+      }
     }
 
     ZendeskClient.prototype.getRecentTickets = function() {
