@@ -36,7 +36,7 @@
     ZendeskClient.prototype.searchTickets = function (query, options) {
       if (!query) throw new Error('"query"は必須です');
 
-      var param = Utilities.formatString('type:ticket %s', query);
+      var param = Utilities.formatString('query=type:ticket %s', query);
       for (var key in options) {
         param += '&' + Utilities.formatString('%s=%s', key, options[key]);
       }
