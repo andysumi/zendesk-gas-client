@@ -33,6 +33,16 @@
       return this.fetch_('/tickets/' + id + '.json',{'method': 'get'});
     };
 
+    ZendeskClient.prototype.searchTickets = function (query, options) {
+      if (!query) throw new Error('"query"は必須です');
+
+      var param = Utilities.formatString('type:ticket %s', query);
+      for (var key in options) {
+        param += '&' + Utilities.formatString('%s=%s', key, options[key]);
+      }
+      return this.fetch_(Utilities.formatString('/search.json?%s', encodeURIComponent(param)), { method: 'get' });
+    };
+
     ZendeskClient.prototype.fetch_ = function(resource, options) {
       var endPoint = this.apiUrl + resource;
       var response = UrlFetchApp.fetch(endPoint, {

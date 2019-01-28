@@ -27,3 +27,14 @@ function getRecentTickets() { // eslint-disable-line no-unused-vars
 function getSingleTicket(id) { // eslint-disable-line no-unused-vars
   throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
 }
+
+/**
+ * チケットを検索する
+ * @param {String} query 検索条件
+ * @param {Object} options オプション
+ * @return {Object} チケット情報のオブジェクト
+ * https://developer.zendesk.com/rest_api/docs/support/search#list-search-results
+ */
+function searchTickets(query, options) { // eslint-disable-line no-unused-vars
+  throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
+}
