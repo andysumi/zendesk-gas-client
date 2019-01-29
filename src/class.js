@@ -43,6 +43,21 @@
       return this.fetch_(Utilities.formatString('/search.json?%s', encodeURI(param)), { method: 'get' });
     };
 
+    ZendeskClient.prototype.getTicketComments = function (id, options) {
+      var paramString = this.buildParameter_(options);
+      return this.fetch_(Utilities.formatString('/api/v2/tickets/%d/comments.json%s', id, paramString), { method: 'get' });
+    };
+
+    ZendeskClient.prototype.buildParameter_ = function (options) {
+      if (!options) return '';
+
+      var params = [];
+      for (var key in options) {
+        params.push(Utilities.formatString('%s=%s', key, encodeURI(options[key])));
+      }
+      return '?' + params.join('&');
+    };
+
     ZendeskClient.prototype.fetch_ = function(resource, options) {
       var endPoint = this.apiUrl + resource;
       var response = UrlFetchApp.fetch(endPoint, {
