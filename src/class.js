@@ -45,7 +45,7 @@
 
     ZendeskClient.prototype.getTicketComments = function (id, options) {
       var paramString = this.buildParameter_(options);
-      return this.fetch_(Utilities.formatString('/api/v2/tickets/%d/comments.json%s', id, paramString), { method: 'get' });
+      return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), { method: 'get' });
     };
 
     ZendeskClient.prototype.buildParameter_ = function (options) {
