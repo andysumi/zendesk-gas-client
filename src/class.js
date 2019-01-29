@@ -27,8 +27,9 @@ var _ = Underscore.load();
       }
     }
 
-    ZendeskClient.prototype.getRecentTickets = function() {
-      return this.fetch_('/tickets/recent.json',{method: 'get'});
+    ZendeskClient.prototype.getRecentTickets = function (options) {
+      var paramString = this.buildParameter_(options);
+      return this.fetch_(Utilities.formatString('/tickets/recent.json%s', paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.getSingleTicket = function(id) {
@@ -40,7 +41,7 @@ var _ = Underscore.load();
 
       if (!options) options = {};
       var paramString = this.buildParameter_(_.extend({
-        query: Utilities.formatString('query=type:ticket %s', query)
+        query: Utilities.formatString('type:ticket %s', query)
       }, options));
       return this.fetch_(Utilities.formatString('/search.json%s', paramString), {method: 'get'});
     };

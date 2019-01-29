@@ -13,7 +13,9 @@ function create(subdomain, email, password, apiToken, accessToken) { // eslint-d
 
 /**
  * 最近表示されたチケットを取得する
+ * @param {Object} options オプション
  * @return {Object} チケット情報のオブジェクト
+ * https://developer.zendesk.com/rest_api/docs/support/tickets#list-tickets
  */
 function getRecentTickets() { // eslint-disable-line no-unused-vars
   throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
