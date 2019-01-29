@@ -40,7 +40,7 @@
       for (var key in options) {
         param += '&' + Utilities.formatString('%s=%s', key, options[key]);
       }
-      return this.fetch_(Utilities.formatString('/search.json?%s', encodeURIComponent(param)), { method: 'get' });
+      return this.fetch_(Utilities.formatString('/search.json?%s', encodeURI(param)), { method: 'get' });
     };
 
     ZendeskClient.prototype.fetch_ = function(resource, options) {
