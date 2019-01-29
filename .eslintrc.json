@@ -11,6 +11,7 @@
     },
     "globals": {
       "ZendeskClient": false,
+      "Underscore": false,
       "console": false
     },
     "rules": {

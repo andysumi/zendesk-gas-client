@@ -1,24 +1,26 @@
-(function(global) {
+var _ = Underscore.load();
+
+(function (global) {
   var ZendeskClient = (function() {
 
     function ZendeskClient(subdomain, email, password, apiToken, accessToken) {
-      this.apiUrl = 'https://' + subdomain + '.zendesk.com/api/v2';
+      this.apiUrl = Utilities.formatString('https://%s.zendesk.com/api/v2', subdomain);
 
       var authStr;
       if (email) {
         if (password) {
-          authStr = email + ':' + password;
+          authStr = Utilities.formatString('%s:%s', email, password);
         } else if (apiToken) {
-          authStr = email + '/token:' + apiToken;
+          authStr = Utilities.formatString('%s/token:%s', email, apiToken);
         } else {
           throw new Error('"password"または"apiToken"は必須です');
         }
         this.headers = {
-          Authorization: 'Basic ' + Utilities.base64Encode(authStr)
+          Authorization: Utilities.formatString('Basic %s', Utilities.base64Encode(authStr))
         };
       } else if (accessToken) {
         this.headers = {
-          Authorization: 'Bearer ' + accessToken
+          Authorization: Utilities.formatString('Bearer %s', accessToken)
         };
       } else {
         throw new Error('"email"または"accessToken"は必須です');
@@ -26,26 +28,26 @@
     }
 
     ZendeskClient.prototype.getRecentTickets = function() {
-      return this.fetch_('/tickets/recent.json',{'method': 'get'});
+      return this.fetch_('/tickets/recent.json',{method: 'get'});
     };
 
     ZendeskClient.prototype.getSingleTicket = function(id) {
-      return this.fetch_('/tickets/' + id + '.json',{'method': 'get'});
+      return this.fetch_(Utilities.formatString('/tickets/%d.json', id), {method: 'get'});
     };
 
     ZendeskClient.prototype.searchTickets = function (query, options) {
       if (!query) throw new Error('"query"は必須です');
 
-      var param = Utilities.formatString('query=type:ticket %s', query);
-      for (var key in options) {
-        param += '&' + Utilities.formatString('%s=%s', key, options[key]);
-      }
-      return this.fetch_(Utilities.formatString('/search.json?%s', encodeURI(param)), { method: 'get' });
+      if (!options) options = {};
+      var paramString = this.buildParameter_(_.extend({
+        query: Utilities.formatString('query=type:ticket %s', query)
+      }, options));
+      return this.fetch_(Utilities.formatString('/search.json%s', paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.getTicketComments = function (id, options) {
       var paramString = this.buildParameter_(options);
-      return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), { method: 'get' });
+      return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.buildParameter_ = function (options) {
