@@ -32,7 +32,9 @@ var _ = Underscore.load();
       return this.fetch_(Utilities.formatString('/tickets/recent.json%s', paramString), {method: 'get'});
     };
 
-    ZendeskClient.prototype.getSingleTicket = function(id) {
+    ZendeskClient.prototype.getSingleTicket = function (id) {
+      if (!id) throw new Error('"id"は必須です');
+
       return this.fetch_(Utilities.formatString('/tickets/%d.json', id), {method: 'get'});
     };
 
@@ -47,8 +49,33 @@ var _ = Underscore.load();
     };
 
     ZendeskClient.prototype.getTicketComments = function (id, options) {
+      if (!id) throw new Error('"id"は必須です');
+
       var paramString = this.buildParameter_(options);
       return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), {method: 'get'});
+    };
+
+    ZendeskClient.prototype.getSingleUser = function (id) {
+      if (!id) throw new Error('"id"は必須です');
+
+      return this.fetch_(Utilities.formatString('/users/%d.json', id), {method: 'get'});
+    };
+
+    ZendeskClient.prototype.getMultipleUsers = function (ids) {
+      if (!ids) throw new Error('"ids"は必須です');
+
+      var paramString = this.buildParameter_({ids: ids.join(',')});
+      return this.fetch_(Utilities.formatString('/users/show_many.json%s', paramString), {method: 'get'});
+    };
+
+    ZendeskClient.prototype.searchUsers = function (query, options) {
+      if (!query) throw new Error('"query"は必須です');
+
+      if (!options) options = {};
+      var paramString = this.buildParameter_(_.extend({
+        query: Utilities.formatString('type:user %s', query)
+      }, options));
+      return this.fetch_(Utilities.formatString('/search.json%s', paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.buildParameter_ = function (options) {
