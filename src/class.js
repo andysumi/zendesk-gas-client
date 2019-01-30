@@ -51,6 +51,10 @@ var _ = Underscore.load();
       return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), {method: 'get'});
     };
 
+    ZendeskClient.prototype.getSingleUser = function (id) {
+      return this.fetch_(Utilities.formatString('/users/%d.json', id), { method: 'get' });
+    };
+
     ZendeskClient.prototype.buildParameter_ = function (options) {
       if (!options) return '';
 
