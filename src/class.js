@@ -32,7 +32,9 @@ var _ = Underscore.load();
       return this.fetch_(Utilities.formatString('/tickets/recent.json%s', paramString), {method: 'get'});
     };
 
-    ZendeskClient.prototype.getSingleTicket = function(id) {
+    ZendeskClient.prototype.getSingleTicket = function (id) {
+      if (!id) throw new Error('"id"は必須です');
+
       return this.fetch_(Utilities.formatString('/tickets/%d.json', id), {method: 'get'});
     };
 
@@ -47,11 +49,15 @@ var _ = Underscore.load();
     };
 
     ZendeskClient.prototype.getTicketComments = function (id, options) {
+      if (!id) throw new Error('"id"は必須です');
+
       var paramString = this.buildParameter_(options);
       return this.fetch_(Utilities.formatString('/tickets/%d/comments.json%s', id, paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.getSingleUser = function (id) {
+      if (!id) throw new Error('"id"は必須です');
+
       return this.fetch_(Utilities.formatString('/users/%d.json', id), { method: 'get' });
     };
 
