@@ -61,3 +61,13 @@ function getTicketComments(id, options) { // eslint-disable-line no-unused-vars
 function getSingleUser(id) { // eslint-disable-line no-unused-vars
   throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
 }
+
+/**
+ * 指定した複数人のユーザーを取得する
+ * @param {Array} ids ユーザーのidの配列
+ * @return {Object} ユーザー情報のオブジェクト
+ * https://developer.zendesk.com/rest_api/docs/support/users#show-many-users
+ */
+function getMultipleUsers(ids) { // eslint-disable-line no-unused-vars
+  throw new Error('このメソッドは直接呼び出せません。createメソッドで取得したインスタンスより呼び出してください。');
+}

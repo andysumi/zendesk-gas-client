@@ -55,6 +55,13 @@ var _ = Underscore.load();
       return this.fetch_(Utilities.formatString('/users/%d.json', id), { method: 'get' });
     };
 
+    ZendeskClient.prototype.getMultipleUsers = function (ids) {
+      if (!ids) throw new Error('"ids"は必須です');
+
+      var paramString = this.buildParameter_({ids: ids.join(',')});
+      return this.fetch_(Utilities.formatString('/users/show_many.json%s', paramString), {method: 'get'});
+    };
+
     ZendeskClient.prototype.buildParameter_ = function (options) {
       if (!options) return '';
 
