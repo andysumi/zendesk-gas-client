@@ -58,7 +58,7 @@ var _ = Underscore.load();
     ZendeskClient.prototype.getSingleUser = function (id) {
       if (!id) throw new Error('"id"は必須です');
 
-      return this.fetch_(Utilities.formatString('/users/%d.json', id), { method: 'get' });
+      return this.fetch_(Utilities.formatString('/users/%d.json', id), {method: 'get'});
     };
 
     ZendeskClient.prototype.getMultipleUsers = function (ids) {
@@ -66,6 +66,16 @@ var _ = Underscore.load();
 
       var paramString = this.buildParameter_({ids: ids.join(',')});
       return this.fetch_(Utilities.formatString('/users/show_many.json%s', paramString), {method: 'get'});
+    };
+
+    ZendeskClient.prototype.searchUsers = function (query, options) {
+      if (!query) throw new Error('"query"は必須です');
+
+      if (!options) options = {};
+      var paramString = this.buildParameter_(_.extend({
+        query: Utilities.formatString('type:user %s', query)
+      }, options));
+      return this.fetch_(Utilities.formatString('/search.json%s', paramString), {method: 'get'});
     };
 
     ZendeskClient.prototype.buildParameter_ = function (options) {
